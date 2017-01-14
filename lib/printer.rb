@@ -2,15 +2,11 @@ require_relative "unzip"
 require_relative "archivator"
 
 class Printer
-  attr_reader :compressed_text
-  attr_reader :letters
-  attr_reader :identifier
-  attr_reader :uncompressed_text
-
+  attr_reader :compressed_text, :letters, :uncompressed_text
+  
   def initialize
     @letters = []
-    @compressed_text = []
-    @identifier = 28.chr
+    @compressed_text = []    
     @uncompressed_text = []
   end
 
@@ -18,9 +14,9 @@ class Printer
     break_up_the_text_with_the_letters
 
     if ARGV[0] == "-u" 
-      @uncompressed_text = Unzip.new.shapes_from_archive_file(letters, identifier)
+      @uncompressed_text = Unzip.new.shapes_from_archive_file(letters)
     else 
-      @compressed_text = Archivator.new.creates_archive(letters,identifier)
+      @compressed_text = Archivator.new.creates_archive(letters)
     end
 
   output_to_file

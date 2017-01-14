@@ -1,11 +1,12 @@
 class Archivator
-  attr_reader :compressed_text
+  attr_reader :compressed_text, :identifier
   
   def initialize    
-    @compressed_text = []   
+    @compressed_text = []
+    @identifier = 28.chr    
   end
 
-  def creates_archive(letters,identifier)  
+  def creates_archive(letters)  
     index = 0
     number_of_letters = 1
     
@@ -20,8 +21,9 @@ class Archivator
         number_of_letters = 1
       end
 
-    index += 1
+      index += 1
     end
+    
     @compressed_text = compressed_text.join
   end
 end
