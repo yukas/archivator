@@ -1,7 +1,7 @@
-class Unzip
+class DeCompressor
   attr_reader :uncompressed_text, :number_of_repeats, :identifier
   
-  def initialize    
+  def initialize
     @uncompressed_text = []
     @number_of_repeats = []
     @identifier = 28.chr

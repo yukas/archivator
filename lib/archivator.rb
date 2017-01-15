@@ -1,32 +1,41 @@
-class Archivator
-  attr_reader :compressed_text, :identifier
+require_relative "decompressor"
+require_relative "compressor"
+
+class Archivator  
   
-  def initialize    
-    @compressed_text = []
-    @identifier = 28.chr    
+  def initialize
+    @letters = []
+    @file = ARGV[0]
   end
 
-  def creates_archive(letters)  
-    index = 0
-    number_of_letters = 1
-    
-    while index < letters.length 
-      if letters[index] != letters[index + 1] && number_of_letters == 1
-        compressed_text.push(letters[index])
-        number_of_letters = 1
-      elsif letters[index] == letters[index + 1]
-        number_of_letters += 1
-      elsif letters[index] != letters[index + 1] 
-        compressed_text.push(identifier + number_of_letters.to_s + identifier + letters[index].to_s)
-        number_of_letters = 1
-      end
+  def text_archives_or_unzip
+    select_archive_or_unzip
+    break_up_the_text_with_the_letters
 
-      index += 1
+    output_to_file
+  end
+  
+  private
+  
+  attr_reader :letters, :file
+
+  def select_archive_or_unzip    
+    @file = ARGV[1] if ARGV[0] == "-u"         
+  end
+  
+  def break_up_the_text_with_the_letters
+    File.open(file) do |review_file|
+      @letters = review_file.read.chars        
     end
-    
-    @compressed_text = compressed_text.join
+  end
+  
+  def output_to_file
+    if ARGV[0] == "-u"
+      File.open(ARGV[2], "w") {|file| file.write DeCompressor.new.shapes_from_archive_file(letters)}
+    else 
+      File.open(ARGV[1], "w") {|file| file.write Compressor.new.creates_archive(letters)}
+    end
   end
 end
 
-  
- 
+Archivator.new.text_archives_or_unzip
