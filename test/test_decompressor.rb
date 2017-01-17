@@ -2,12 +2,10 @@ require "minitest/autorun"
 require "decompressor"
 
 class TestDeCompressor < Minitest::Test
-  
   def setup
     @unzip = DeCompressor.new
   end
-  
-  
+
   def test_decompression_5b_2a_in_bbbbb_aa
     decompressible_line = @unzip.shapes_from_archive_file(["\x1C", 5, "\x1C", "b", " ", "\x1C", 2, "\x1C", "a"])
     
@@ -26,4 +24,3 @@ class TestDeCompressor < Minitest::Test
     assert_equal "kkkkkk", decompressible_line
   end
 end
-
