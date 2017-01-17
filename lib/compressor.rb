@@ -27,6 +27,3 @@ class Compressor
     @compressed_text = compressed_text.join
   end
 end
-
-  
- 
