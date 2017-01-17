@@ -24,6 +24,8 @@ class Archivator
   end
   
   def break_up_the_text_with_the_letters
+    # @text_to_compress = File.read(file)
+    
     File.open(file) do |review_file|
       @letters = review_file.read.chars        
     end
