@@ -13,7 +13,6 @@ class DeCompressor
 
     while index < letters.length
       if letters[index] == identifier
-
         while letters[index + 1] != identifier
           number_of_repeats.push(letters[index + 1])
           transition_to_next_letter = index + 1
